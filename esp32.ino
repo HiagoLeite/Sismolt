@@ -1,8 +1,54 @@
-#include <WiFi.h>
+/*
+PARA O DESENVOLVIMENTO DO PROJETO FOI UTILIZADO 2 BIBLIOTECAS SENDO "WiFi.h" 
+BIBLIOTECA DA IDE ARDUINO E "ESP32_MailClient.h" SENDO UMA LIB 
+DISPONIBILIZADA NO GITHUB(PARA O USO DESSA EU DEIXEI A LICENÇA ABAIXO). PARA A QUESTÃ DE REQUISIÇÃO
+EU UTILIZEI UM EXEMPLO QUE APROPRIA IDE ARDUINO DISPONIBILIZA.
 
-const char* ssid = "Silvana";
-const char* password = "Silvana.87841781";
-const char* host = "192.168.15.3";//ip ou site sem .ext
+(LICENÇA DA LIB "ESP32_MailClient.h")
+The MIT License (MIT)
+
+Copyright (c) 2021 K. Suwatchai (Mobizt)
+
+Permission is hereby granted, free of charge, to any person returning a copy of 
+this software and associated documentation files (the "Software"), to deal in the Software 
+without restriction, including without limitation the rights to use, copy, modify, merge, 
+publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to 
+whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+SOFTWARE.
+LINK-https://github.com/mobizt/ESP-Mail-Client
+
+Foi colocado este aviso acima devido ao  copyright, tendo em mente o uso da biblioteca 
+disponibilizada pelo mesmo.
+*/
+
+#include "WiFi.h"
+#include "ESP32_MailClient.h"
+
+//INSERÇÃO DA CONTA E SENHA DO ESP32
+#define contaRemetente "@gmail.com"
+#define senhaRemetente ""
+//INSERÇÃO DA CONTA DO DESTINATARIO(RECEBE EMAIL DO ESP)
+#define emailDestinatario "@hotmail.com"
+//INSERÇÃO DAS CONFIGURAÇÕES DO SMTP(CONFIG PARA CONTAS GMAIL)
+#define smtpServer "smtp.gmail.com"
+#define smtpServerPort 465
+//ASSUNTO DO EMAIL
+#define emailAssunto "Estado alarmante!"
+//OBJ QUE CONTÉM DADOS PARA O ENVIO.
+SMTPData smtpData;
+
+const char* ssid = "nome rede";
+const char* password = "senha";
+const char* host = "xxxxxxx";//ip ou site sem .ext
 
 //Sensor de umidade, portas leds.
 //int pinoSensor=33;
@@ -63,8 +109,10 @@ void loop()
     //VERIFICA SE O ESTAO DE PERIGO ESTA SE REPITINDO AFIM DE ENVIAR UM ALERTA    
     if(aux<=400){
       contPerigo++;
-      if(contPerigo==5){
+      if(contPerigo==100){
         //METODO PARA MANDAR EMAIL AVISANDO DO PERIGO        
+        mandarEmail();
+        contPerigo=0;
       } 
     }else{
       contPerigo=0;
@@ -123,7 +171,6 @@ void logicaBd(int valorA,int valorB){
               return;
           }
       }
-
       // SERIAL PRINT
       while(client.available()) {
           String line = client.readStringUntil('\r');
@@ -136,7 +183,6 @@ void logicaBd(int valorA,int valorB){
             Serial.println("Ocorreu um erro");
           }
       }
-
       Serial.println();
       Serial.println("conexão fechada");
 
@@ -176,3 +222,33 @@ void logicaLed(){
   }
 }
 
+void mandarEmail(){   
+  //DEFINI O HOST DO SERVER, A PORTA DO SERVER, EMAIL E SENHA. 
+  smtpData.setLogin(smtpServer, smtpServerPort, contaRemetente, senhaRemetente);
+  //DEFENI O NOME DO REMETENTE
+  smtpData.setSender("SISMOLT", contaRemetente);
+  //PRIORIDADE ( VARIA ENTRE LOW, 1,5) 
+  smtpData.setPriority("High");
+  //DEFINE O ASSUNTO
+  smtpData.setSubject(emailAssunto);
+
+  //MENSAGEM EM HTML.(PARAMETRO TRUE É UTILIZADO CASO SEJA MSG HTML, CASO TEXTO BRUTO FALSE)
+  smtpData.setMessage("<div style=\"color:#054f77;\">"
+  "<h1>Sensor de Umidade do solo</h1></div>"
+  "<h2>Foi detectado um alto risco de deslizamento na sua propriedade !</h2>"
+  "<br/><br/>"
+  "<p>É recomendado que você saia da sua residencia e busque um abrigo seguro,"
+  " ligue para <b>XXXX-XXXXX</b> e informe a sua situação</p>", true);
+
+  //DEFINE O EMAIL DO DESTINATARIO
+  smtpData.addRecipient(emailDestinatario);
+
+    if (!MailClient.sendMail(smtpData)){
+      Serial.println("Erro ao mandar email, " + MailClient.smtpErrorReason());
+    }else{
+    Serial.println("Email enviado com sucesso");
+    }
+    
+  //LIMPA OS DADOS DA SMTPDATA
+  smtpData.empty();
+}
