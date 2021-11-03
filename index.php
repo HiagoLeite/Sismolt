@@ -1,31 +1,29 @@
 <?php 
 	require_once ('navBar.php');
-?>
+?> 
 <!DOCTYPE HTML>
 <html lang="pt-br">
 
 <head>
+	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">	
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	
+	<meta name="theme-color" content="cor em hexadecimal">
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<!-- JS -->
-	<script src="js/scripts.js" defer></script>
-
+	<link rel="stylesheet" type="text/css" href="css/styleSheets.css">
 	<title>Sismolt</title>
 	
 </head>	
 
-<body>
-
+<body class="fundoCorpo">
 		<div class="textArea">
 			<h1>Segurança para todos!</h1>
-			<button class="btnAdquirir">Como adquirir</button>
+			<br/>
+			<a class="btnAdquirir" href="#refContainer">Saiba Mais</a>
 		</div>
 		
-	<div class="container">
+	<div class="container" id="refContainer">
 		<div class="row">
 
 			<section class="col-4 col-xs-min-4 col-md-min-4 col-lg-min-4" id="imgProt">

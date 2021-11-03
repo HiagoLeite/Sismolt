@@ -5,10 +5,14 @@
 	box-sizing: border-box;
 }
 body{
-    background: 
-    url('../imagens/ruido.png'),
-    linear-gradient(50deg,rgba(0, 0, 139),rgba(176,224,230));
-    background-attachment: scroll;
+	font-family: Helvetica,Arial,sans-serif;
+	background-color: rgb(163, 153, 153);
+}
+.fundoCorpo{
+	background: 
+	url('../imagens/ruido.png'),
+    linear-gradient(70deg,rgba(0, 0, 139),rgb(162, 136, 195));
+	background-attachment: scroll;
 	font-family: Helvetica,Arial,sans-serif;
 	overflow-x: hidden;
 }
@@ -29,9 +33,11 @@ ul.topNav {
 	width:100vw ;   
 }
 #logo{
-	margin-left: 0.5em;
+	margin-top: 10px;
+	padding-top: 5px;
+	padding-left:5px;
+	height: 48px;
 	font-size: 20px;
-	padding: 20px 10px 20px 20px;
 	display:inline-block;
 	color: #fff;
 }
@@ -56,13 +62,15 @@ ul.topNav li.icon {
 	display: none;
 }
 .imgLogo {
-	float: left;
-	background-color: red;
-	height: 50px;
-	width: 50px;
+	float:left;
 	display: block;
-	margin: 10px 0px 10px 40px;
-	color: #fff;
+	margin: 10px 0px 0px 30px;
+}
+#navSair{
+	display: none;
+}
+#navHome{
+	display: none;
 }
 /* --INDEX-- */
 .textArea{
@@ -94,7 +102,7 @@ ul.topNav li.icon {
 .container{
     background-color: #fff;
     height:auto;
-    padding:10px 0px;
+    padding:70px 0px;
 	margin-bottom:20px ;
 	display: flex;
 	flex-direction: row;
@@ -165,7 +173,7 @@ div #objetivo, #comoFunciona{
 	float:left;
 }
 /* ---LOGAR/CADASTRAR-- */
-form{
+.formPag{
 	background-color: #fff;
 	width: 350px;
 	padding: 30px;
@@ -224,19 +232,20 @@ input[type=text]:focus {
 .containerPrev {
 	margin: 0 auto;
 	padding:10px;
-	border:1px solid #000;
-	background-color: #fff;
 	border-radius: 40px;
 	margin-bottom: 20px;
+	background-color: orange;
+	border: 2px solid black;
+	width: 550px;
 }
 .containerPrev ol{
 	padding-left:15px;
 }
 /* --HOME-- */
 #dadosUsuario{
-	width:80vw;
+	width:70vw;
 	height: 40px; 
-	padding: 10px;
+	padding: 9px;
 	background-color: #fff;
 	border-radius: 20px;
 	border:1px solid black;
@@ -249,9 +258,11 @@ input[type=text]:focus {
 }
 #msgBemVindo{
 	float:left;
+	padding-left: 10px;
 }
 #msgEstadoAtual{
 	float:right;
+	padding-right: 10px;
 }
 #btnPesquisar{
 	border:2px solid rgb(255, 255, 0);
@@ -261,32 +272,57 @@ input[type=text]:focus {
 #btnPesquisar:hover{
 	border-color: #000;
 }
-.contHome{
-	display: block;
-	width:100vw;
-	background-color: #fff;
-	border-radius: 10px;
-	border:1px solid black;
-	margin-bottom: 200px;
+#formPesquisa{
+	width:300px;
+	padding:10px;
+	margin: 0px auto;
+
+}
+.containerHome{
+    background-color: #fff;
+    height:auto;
+    padding:70px 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+#contPrinc{
+	width: 430px;
+	padding: 5px;
+	border-radius: 20px;
+	border: 2px solid black ;
+	margin: 0px 15px 15px 15px;
+	background-color: orange;
+	box-shadow:9px 7px 5px rgba(50, 50, 50, 0.77); ;
+}
+#contOcorrencia{
+	width: 430px;
+	border: 2px solid black ;
+	margin: 0px 15px 15px 15px;
+	background-color: 	orange;
+	border-radius: 20px;
+	padding: 5px;
+	box-shadow:9px 7px 5px rgba(50, 50, 50, 0.77); ;
+	text-align: center;
 }
 #inputData{
-	height: 25px;
-	font-size: 15px;
 	border-radius: 10px;
 	text-align: center;
 }
-#tabDados{
+.tabDados{
 	margin: 0 auto;
 	text-align: center;
 	border-collapse: collapse;
 	border:1px solid ;
-	width: 90vw;
+	width: 40vw;
 }
-#tabDados td {
+.tabDados td {
     border: 1px solid ;
 }
-#tabDados th {
+.tabDados th {
     border: 1px solid;
+	padding: 2px;
 }
 /* RESPONSIVE */
 [class*="col-"] {
@@ -296,7 +332,7 @@ input[type=text]:focus {
 	content: "";
 	clear: both;
 	display: table;
-  }
+}
 @media only screen and (max-width: 600px) {
 	.col-1 {width: 8.33%;}
 	.col-2 {width: 16.66%;}
@@ -345,10 +381,24 @@ input[type=text]:focus {
 	}
 	/* INDEX */
 	.textArea{font-size:25px;}
+	/* PREVENCAO*/
+	.containerPrev{width: 320px;}
+	/* HOME*/	
+	#dadosUsuario{
+		width: 45vw;
+		height: 70px;
+	}
+	#contPrinc{
+		width:0 auto; 
+	}
+	#contOcorrencia{
+		width:0 auto;
+	}	
 }
 @media only screen and (min-width: 600px) {
+	/* PREVENCAO*/
+	.containerPrev{width: 520px;}
 }
-  
 @media only screen and (min-width: 768px) {
 	.col-xs-min-1 {width: 8.33%;}
 	.col-xs-min-2 {width: 16.66%;}
@@ -363,7 +413,6 @@ input[type=text]:focus {
 	.col-xs-min-11 {width: 91.66%;}
 	.col-xs-min-12 {width: 100%;}
 } 
-  
 @media only screen and (min-width: 992px) {
 	.col-md-min-1 {width: 8.33%;}
 	.col-md-min-2 {width: 16.66%;}
@@ -378,7 +427,6 @@ input[type=text]:focus {
 	.col-md-min-11 {width: 91.66%;}
 	.col-md-min-12 {width: 100%}
 } 
-  
 @media only screen and (min-width: 1200px) {
 	.col-lg-min-1 {width: 8.33%;}
 	.col-lg-min-2 {width: 16.66%;}
@@ -392,4 +440,8 @@ input[type=text]:focus {
 	.col-lg-min-10 {width: 83.33%;}
 	.col-lg-min-11 {width: 91.66%;}
 	.col-lg-min-12 {width: 100%;}
+}
+hr{
+	height: 2px;
+	background-color: white;
 }

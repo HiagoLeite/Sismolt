@@ -32,7 +32,6 @@ Indice conteudos
 - [x] SESSION e home
 - [x] armazenamento dos dados do sensor no banco
 - [x] notificações no email
-- [ ] PWA da aplicação
 
 ### Tecnologias
 

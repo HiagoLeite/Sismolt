@@ -1,6 +1,5 @@
 <?php 
 	require_once ('navBar.php');
-	require_once ('footer.php');
 
 	$erroCad= isset($_GET['erro_cadastro'])	? $_GET['erro_cadastro'] : 0;
 	$erroSenha= isset($_GET['erro_senha']) ? $_GET['erro_senha']	: 0;
@@ -12,21 +11,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<!-- JS -->
-	<script src="js/scripts.js" defer></script>
-
+	<link rel="stylesheet" type="text/css" href="css/styleSheets.css">
 	<title>cadastrar|Sismolt</title>
 
 </head>
 
-<body>
-
+<body class="fundoCorpo">
 	<div class="tamanhoArea">
 		<section id="cadastro" >
-			<form method="POST" action="php/registrar.php">
+			<form class="formPag" method="POST" action="php/registrar.php">
 				<h3>Cadastrar </h3>
 				<br/>
 
@@ -35,11 +29,11 @@
 				<br/><br/>
 				
 				<label class="lblMsg">Email:</label>
-				<input class="formTexto" type="text" placeholder="Digite seu email" name="regitraEmail"  required="requiored">
+				<input class="formTexto" type="email" placeholder="Digite seu email" name="regitraEmail"  required="requiored">
 				<br/><br/>
 				
 				<label class="lblMsg">Cep:</label>
-				<input class="formTexto" type="text" placeholder="Digite o cep" name="registraCep"  required="requiored">
+				<input class="formTexto" type="number" placeholder="Digite o cep" name="registraCep"  required="requiored">
 				<br/><br/>
 
 				<?php
@@ -55,7 +49,7 @@
 				<br/><br/>
 
 				<label class="lblMsg">Numero:</label>
-				<input class="formTexto" type="text" placeholder="Digite o numero da casa" name="registraNumero"  required="requiored">
+				<input class="formTexto" type="number" placeholder="Digite o numero da casa" name="registraNumero"  required="requiored">
 				<br/><br/>
 				
 				<?php
@@ -75,10 +69,8 @@
 				<br/><br/>
 
 				<input class="button" id="btnRegistrar"  type="submit" name="enviarCad" value="Registrar">
-				
 			</form>
 		</section>
 	</div>
-
 </body>
 </html>	
